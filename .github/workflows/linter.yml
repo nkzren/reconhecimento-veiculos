@@ -25,3 +25,5 @@ jobs:
       # Runs a single command using the runners shell
       - name: Python Code Quality and Lint
         uses: ricardochaves/python-lint@v1.3.0
+        with:
+          python-root-list: "tests"
