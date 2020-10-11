@@ -1,0 +1,97 @@
+import cv2 as cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# img=cv2.imread('resources/carro02.png')
+# #img1=cv2.imread('resources/carro01.png')
+# img1=img
+# images=np.concatenate((img,img1),axis=1)
+# # cv2.imshow("Images",images)
+# # cv2.waitKey(0)
+# # cv2.destroyAllWindows()
+
+# gray_img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+# gray_img1=cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
+
+# # cv2.imshow("Images",images)
+# # cv2.waitKey(0)
+# # cv2.destroyAllWindows()
+
+# hist=cv2.calcHist(gray_img,[0],None,[256],[0,256])
+# hist1=cv2.calcHist(gray_img1,[0],None,[256],[0,256])
+# plt.subplot(121)
+# plt.title("Image1")
+# plt.xlabel('bins')
+# plt.ylabel("No of pixels")
+# plt.plot(hist)
+# plt.subplot(122)
+# plt.title("Image2")
+# plt.xlabel('bins')
+# plt.ylabel("No of pixels")
+# plt.plot(hist1)
+# #plt.show()
+
+# gray_img_eqhist=cv2.equalizeHist(gray_img)
+# gray_img1_eqhist=cv2.equalizeHist(gray_img1)
+# hist=cv2.calcHist(gray_img_eqhist,[0],None,[256],[0,256])
+# hist1=cv2.calcHist(gray_img1_eqhist,[0],None,[256],[0,256])
+# plt.subplot(121)
+# plt.plot(hist)
+# plt.subplot(122)
+# plt.plot(hist1)
+# #plt.show()
+
+# # images1=np.concatenate((gray_img_eqhist,gray_img),axis=1)
+# # cv2.imshow("Images",images1)
+# # cv2.waitKey(0)
+# # cv2.destroyAllWindows()
+
+# clahe=cv2.createCLAHE(clipLimit=40)
+# gray_img_clahe=clahe.apply(gray_img_eqhist)
+# gray_img1_clahe=clahe.apply(gray_img)
+# # images=np.concatenate((gray_img_clahe,gray_img1_clahe),axis=1)
+# # cv2.imshow("Images",images)
+# # cv2.waitKey(0)
+# # cv2.destroyAllWindows()
+
+# th=40
+# max_val=255
+# ret, o1 = cv2.threshold(gray_img_clahe, th, max_val, cv2.THRESH_BINARY)
+# # cv2.putText(o1,"Thresh_Binary",(40,100),cv2.FONT_HERSHEY_SIMPLEX,2,(255,255,255),3,cv2.LINE_AA)
+# ret, o2 = cv2.threshold(gray_img_clahe, th, max_val, cv2.THRESH_BINARY_INV)
+# # cv2.putText(o2,"Thresh_Binary_inv",(40,100),cv2.FONT_HERSHEY_SIMPLEX,2,(255,255,255),3,cv2.LINE_AA)
+# ret, o3 = cv2.threshold(gray_img_clahe, th, max_val, cv2.THRESH_TOZERO)
+# # cv2.putText(o3,"Thresh_Tozero",(40,100),cv2.FONT_HERSHEY_SIMPLEX,2,(255,255,255),3,cv2.LINE_AA)
+# ret, o4 = cv2.threshold(gray_img_clahe, th, max_val, cv2.THRESH_TOZERO_INV)
+# # cv2.putText(o4,"Thresh_Tozero_inv",(40,100),cv2.FONT_HERSHEY_SIMPLEX,2,(255,255,255),3,cv2.LINE_AA)
+# ret, o5 = cv2.threshold(gray_img_clahe, th, max_val, cv2.THRESH_TRUNC)
+# # cv2.putText(o5,"Thresh_trunc",(40,100),cv2.FONT_HERSHEY_SIMPLEX,2,(255,255,255),3,cv2.LINE_AA)
+# ret ,o6=  cv2.threshold(gray_img_clahe, th, max_val,  cv2.THRESH_OTSU)
+# # cv2.putText(o6,"Thresh_OSTU",(40,100),cv2.FONT_HERSHEY_SIMPLEX,2,(255,255,255),3,cv2.LINE_AA)
+# ret ,o7=  cv2.threshold(gray_img_clahe, th, max_val,  cv2.THRESH_TRIANGLE)
+
+# final=np.concatenate((o1,o2,o3,o4,o5,o6,o7),axis=1)
+# final2=np.concatenate((gray_img_eqhist,gray_img),axis=1)
+# # final1=np.concatenate((o4,o5,o6),axis=1)
+# # final2=np.concatenate((o5,o6,o7),axis=1)
+
+# cv2.imwrite("Image1.jpg",final)
+# cv2.imwrite("Image2.jpg",final2)
+# # cv2.imwrite("Image2.jpg",final1)
+# # cv2.imwrite("Image3.jpg",final2)
+
+gray_image = cv2.imread('resources/carro04.png',0)
+gray_image1 = cv2.imread('resources/carro04.png',0)
+thresh1 = cv2.adaptiveThreshold(gray_image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+thresh2 = cv2.adaptiveThreshold(gray_image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 31, 3)
+thresh3 = cv2.adaptiveThreshold(gray_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 13, 5)
+thresh4 = cv2.adaptiveThreshold(gray_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 4)
+thresh11 = cv2.adaptiveThreshold(gray_image1, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+thresh21 = cv2.adaptiveThreshold(gray_image1, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 31, 5)
+thresh31 = cv2.adaptiveThreshold(gray_image1, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21,5 )
+thresh41 = cv2.adaptiveThreshold(gray_image1, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 5)
+
+final=np.concatenate((thresh1,thresh2,thresh3,thresh4),axis=1)
+final1=np.concatenate((thresh11,thresh21,thresh31,thresh41),axis=1)
+cv2.imwrite('rect.jpg',final)
+cv2.imwrite('rect1.jpg',final1)
