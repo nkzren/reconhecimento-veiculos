@@ -1,12 +1,11 @@
 FROM python:3.8-alpine
 
-RUN mkdir /app
+COPY ./main.py ./app
+COPY ./requirements.txt ./app
 
 WORKDIR /app
 
-ADD requirements.txt /app
+RUN pip3 install -r ./requirements.txt
 
-ADD main.py /app
+CMD [ "gunicorn", "-w 4", "-b", "0.0.0.0:8000", "main:app" ]
 
-RUN pip3 install -r requirements.txt
-CMD ["gunicorn", "-w 4", "-b", "0.0.0.0:8000", "main:app"]
