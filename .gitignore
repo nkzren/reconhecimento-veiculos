@@ -127,5 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
 .vscode/
+temp_base64.jpg
+temp*
