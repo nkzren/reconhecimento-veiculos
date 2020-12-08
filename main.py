@@ -1,17 +1,15 @@
 import redis
 from flask import Flask, request
-from waitress import serve
 
 import base64
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-# required library
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
+# import matplotlib.pyplot as plt
+# import matplotlib.gridspec as gridspec
 from local_utils import detect_lp
 from os.path import splitext,basename
 from keras.models import model_from_json
@@ -38,8 +36,6 @@ def detectLicensePlate():
 
     return "Hello World"
 
-serve(app, host='localhost', port=80, threads=1)
-
 def load_model(path):
     try:
         path = splitext(path)[0]
@@ -52,8 +48,8 @@ def load_model(path):
     except Exception as e:
         print(e)
 
-# wpod_net_path = "wpod-net.json"
-# wpod_net = load_model(wpod_net_path)
+wpod_net_path = "wpod-net.json"
+wpod_net = load_model(wpod_net_path)
 
 def preprocess_image(image_path,resize=False):
     img = cv2.imread(image_path)
