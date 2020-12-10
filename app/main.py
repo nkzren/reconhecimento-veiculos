@@ -98,8 +98,8 @@ def detectLicensePlate():
         final_string+=title.strip("'[]")
         
     print(final_string)
-    cv2.imwrite('license_plate.png', plate_image)
-    with open('license_plate.png', 'rb') as image_file:
+    cv2.imwrite('temp_license_plate.png', plate_image)
+    with open('temp_license_plate.png', 'rb') as image_file:
         encoded_string = base64.b64encode(image_file.read())
 
     
