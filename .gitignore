@@ -130,3 +130,5 @@ dmypy.json
 .vscode/
 temp_base64.jpg
 temp*
+
+**/dataset_characters/*
