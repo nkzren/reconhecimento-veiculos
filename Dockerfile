@@ -26,11 +26,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY ./main.py ./
-COPY ./requirements.txt ./
-
-COPY ./wpod-net.json ./
-COPY ./wpod-net.h5 ./
+COPY ./app ./
 
 RUN pip install -r ./requirements.txt
 
