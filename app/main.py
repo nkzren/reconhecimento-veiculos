@@ -20,6 +20,21 @@ app = Flask(__name__)
 
 redis = redis.Redis(host="localhost",port=6389, db=0)
 
+def load_model(path):
+    try:
+        path = splitext(path)[0]
+        with open('%s.json' % path, 'r') as json_file:
+            model_json = json_file.read()
+        model = model_from_json(model_json, custom_objects={})
+        model.load_weights('%s.h5' % path)
+        print("Loading model successfully...")
+        return model
+    except Exception as e:
+        print(e)
+
+wpod_net_path = "../common/wpod-net.json"
+wpod_net = load_model(wpod_net_path)
+
 @app.route("/")
 def testEndpoint():
     return "It works!"
@@ -27,6 +42,7 @@ def testEndpoint():
 
 @app.route("/detect", methods=['POST'])
 def detectLicensePlate():
+
     imgdata = base64.b64decode(request.json['image'])
     filename = 'temp_base64.jpg'
     with open(filename, 'wb') as f:
@@ -81,15 +97,15 @@ def detectLicensePlate():
 
     print("Detect {} letters...".format(len(crop_characters)))
 
-    json_file = open('MobileNets_character_recognition.json', 'r')
+    json_file = open('../common/MobileNets_character_recognition.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     model = model_from_json(loaded_model_json)
-    model.load_weights("License_character_recognition_weight.h5")
+    model.load_weights("../common/License_character_recognition_weight.h5")
     print("[INFO] Model loaded successfully...")
 
     labels = LabelEncoder()
-    labels.classes_ = np.load('license_character_classes.npy')
+    labels.classes_ = np.load('../common/license_character_classes.npy')
     print("[INFO] Labels loaded successfully...")
     
     final_string = ''
@@ -109,21 +125,6 @@ def detectLicensePlate():
         'charset': charset,
         'plate_image': encoded_string.decode(charset)
     }
-
-def load_model(path):
-    try:
-        path = splitext(path)[0]
-        with open('%s.json' % path, 'r') as json_file:
-            model_json = json_file.read()
-        model = model_from_json(model_json, custom_objects={})
-        model.load_weights('%s.h5' % path)
-        print("Loading model successfully...")
-        return model
-    except Exception as e:
-        print(e)
-
-wpod_net_path = "wpod-net.json"
-wpod_net = load_model(wpod_net_path)
 
 def preprocess_image(image_path,resize=False):
     img = cv2.imread(image_path)

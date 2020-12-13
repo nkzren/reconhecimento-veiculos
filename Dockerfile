@@ -24,6 +24,9 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     vim
 
+WORKDIR /
+COPY ./common ./common
+
 WORKDIR /app
 
 COPY ./app ./
