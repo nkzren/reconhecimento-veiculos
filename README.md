@@ -20,6 +20,16 @@ Após subir o container, é disponibilizado um endpoint em `localhost:8000/detec
 
 ```json
 {
-  "image": "string_imagem_base64"
+  "image": "<Codigo base64 da imagem a ser reconhecida>"
+}
+```
+
+### Formato da Saída
+
+```json
+{
+  "characters": "ABC1234",
+  "charset": "utf-8"
+  "plate_image": "<Codigo base64 da imagem da placa cortada>"
 }
 ```
