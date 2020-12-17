@@ -20,6 +20,6 @@ Após subir o container, é disponibilizado um endpoint em `localhost:8000/detec
 
 ```json
 {
-  "image": string_imagem_base64
+  "image": "string_imagem_base64"
 }
 ```
