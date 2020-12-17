@@ -16,7 +16,7 @@ Projeto de reconhecimento de veículos criado na disciplina LabXP do IME-USP
 
 Após subir o container, é disponibilizado um endpoint em `localhost:8000/detect`
 
-# Formato da Entrada
+### Formato da Entrada
 
 ```json
 {
